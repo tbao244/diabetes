@@ -3,5 +3,4 @@ numpy>=1.26
 scikit-learn>=1.4
 keras>=3.0
 tensorflow>=2.16
-pickle-mixin
 streamlit>=1.35
