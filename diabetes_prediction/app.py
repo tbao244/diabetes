@@ -4,24 +4,22 @@ import numpy as np
 import pickle
 from keras.models import load_model
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, 'models', 'diabetes_model.h5')
+SCALER_PATH = os.path.join(BASE_DIR, 'models', 'scaler.pkl')
+try:
+    model = load_model(MODEL_PATH)
+    with open(SCALER_PATH, 'rb') as f:
+        scaler = pickle.load(f)
+except Exception as e:
+    st.error(f"Lỗi nạp file hệ thống: {e}")
+    st.write("Đường dẫn hệ thống cố mở nhưng không thấy là:", MODEL_PATH)
+
 st.set_page_config(
     page_title="Dự đoán & Tư vấn Bệnh Tiểu đường",
     page_icon="🏥",
     layout="centered"
 )
-
-@st.cache_resource  
-def load_assets():
-    model = load_model('models/diabetes_model.h5') 
-    with open('models/scaler.pkl', 'rb') as f:
-        scaler = pickle.load(f)
-    return model, scaler
-
-try:
-    model, scaler = load_assets()
-except Exception as e:
-    st.error(f"Không tìm thấy file mô hình hoặc scaler trong thư mục 'models/'. Chi tiết lỗi: {e}")
-    st.stop()
 
 st.title("Hệ Thống AI Dự Đoán Diabetes & Tư Vấn Sức Khỏe")
 st.write("Nhập các chỉ số sinh tồn bên dưới để kiểm tra nguy cơ sức khỏe dựa trên mô hình mạng nơ-ron.")
