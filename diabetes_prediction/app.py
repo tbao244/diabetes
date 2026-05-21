@@ -28,19 +28,6 @@ st.set_page_config(
     layout="centered"
 )
 
-@st.cache_resource  
-def load_assets():
-    model = load_model('models/diabetes_model.h5') 
-    with open('models/scaler.pkl', 'rb') as f:
-        scaler = pickle.load(f)
-    return model, scaler
-
-try:
-    model, scaler = load_assets()
-except Exception as e:
-    st.error(f"Không tìm thấy file mô hình hoặc scaler trong thư mục 'models/'. Chi tiết lỗi: {e}")
-    st.stop()
-
 st.title("Hệ Thống AI Dự Đoán Diabetes & Tư Vấn Sức Khỏe")
 st.write("Nhập các chỉ số sinh tồn bên dưới để kiểm tra nguy cơ sức khỏe dựa trên mô hình mạng nơ-ron.")
 
