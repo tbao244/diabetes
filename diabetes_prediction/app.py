@@ -5,24 +5,22 @@ import pickle
 from keras.models import load_model
 
 import os
-# 1. Lấy thư mục chứa file app.py (tức là thư mục 'diabetes_prediction')
-APP_DIR = os.path.dirname(os.path.abspath(__file__))
-# 2. Lùi ra ngoài 1 cấp để về thư mục gốc của Repository ('diabetes')
-REPO_ROOT = os.path.dirname(APP_DIR)
-# 3. Trỏ chính xác vào thư mục models nằm ở gốc Repo
-MODEL_PATH = os.path.join(REPO_ROOT, 'models', 'diabetes_model.h5')
-SCALER_PATH = os.path.join(REPO_ROOT, 'models', 'scaler.pkl')
-# 4. Tiến hành nạp mô hình và bắt lỗi trực quan để debug nếu có sự cố
+# 1. BASE_DIR chính là thư mục 'diabetes_prediction' (nơi chứa chính file app.py này)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# 2. Trỏ thẳng vào thư mục 'models' nằm cùng cấp với app.py
+MODEL_PATH = os.path.join(BASE_DIR, 'models', 'diabetes_model.h5')
+SCALER_PATH = os.path.join(BASE_DIR, 'models', 'scaler.pkl')
+# 3. Tiến hành nạp mô hình và bộ chuẩn hóa
 try:
     model = load_model(MODEL_PATH)
     with open(SCALER_PATH, 'rb') as f:
         scaler = pickle.load(f)
 except Exception as e:
-    st.error(f"❌ Hệ thống không tìm thấy file bảo bối!")
-    st.info(f"Chi tiết lỗi hệ thống: {e}")
-    st.warning(f"Đường dẫn hệ thống đang tìm thực tế là: {MODEL_PATH}")
-    # In ra danh sách file ở thư mục gốc để kiểm tra Git đã nhận file chưa
-    st.write("Các thư mục hiện có tại gốc Repo:", os.listdir(REPO_ROOT))
+    st.error(f"❌ Vẫn không tìm thấy file bảo bối!")
+    st.info(f"Chi tiết lỗi: {e}")
+    st.warning(f"Đường dẫn hệ thống đã tìm là: {MODEL_PATH}")
+    # Debug xem trong thư mục cùng cấp với app.py thực sự đang có gì
+    st.write("Các file/thư mục nằm chung hàng với app.py:", os.listdir(BASE_DIR))
 
 st.set_page_config(
     page_title="Dự đoán & Tư vấn Bệnh Tiểu đường",
