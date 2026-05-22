@@ -94,7 +94,7 @@ def show():
              border:1px solid #bae6fd;border-radius:16px;padding:24px 32px;
              display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center;">
             <div>
-                <div style="font-family:'Lora',serif;font-size:28px;font-weight:700;color:#0ea5e9;">78%</div>
+                <div style="font-family:'Lora',serif;font-size:28px;font-weight:700;color:#0ea5e9;">80%</div>
                 <div style="font-size:12px;color:#64748b;margin-top:3px;">Độ chính xác</div>
             </div>
             <div>
