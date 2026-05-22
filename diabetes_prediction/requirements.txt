@@ -5,3 +5,4 @@ keras>=3.0
 tensorflow>=2.16
 pickle-mixin
 streamlit>=1.35
+plotly
